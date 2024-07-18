@@ -1,0 +1,5 @@
+/storage/logs/*
+/storage/sessions/*
+/storage/uploads/*
+/vendor/*
+.env

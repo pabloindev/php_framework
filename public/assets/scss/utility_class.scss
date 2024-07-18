@@ -1,0 +1,327 @@
+@use "sass:math";
+
+// Breakpoints
+$breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px );
+
+/* Utility classes for margin */
+/* Le classi per il margin permettono di aggiungere margini a un elemento. */
+/* Es: .m-1 aggiunge un margine di 0.25rem a tutti i lati. */
+@mixin generate-margin-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $size, $length in (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 1.5rem, 5: 3rem) {
+                .m-#{$size} {
+                    margin: $length;
+                }
+
+                .mt-#{$size} {
+                    margin-top: $length;
+                }
+
+                .mb-#{$size} {
+                    margin-bottom: $length;
+                }
+
+                .ml-#{$size} {
+                    margin-left: $length;
+                }
+
+                .mr-#{$size} {
+                    margin-right: $length;
+                }
+
+                .mx-#{$size} {
+                    margin-left: $length;
+                    margin-right: $length;
+                }
+
+                .my-#{$size} {
+                    margin-top: $length;
+                    margin-bottom: $length;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $size, $length in (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 1.5rem, 5: 3rem) {
+                    .m-#{$breakpoint}-#{$size} {
+                        margin: $length;
+                    }
+
+                    .mt-#{$breakpoint}-#{$size} {
+                        margin-top: $length;
+                    }
+
+                    .mb-#{$breakpoint}-#{$size} {
+                        margin-bottom: $length;
+                    }
+
+                    .ml-#{$breakpoint}-#{$size} {
+                        margin-left: $length;
+                    }
+
+                    .mr-#{$breakpoint}-#{$size} {
+                        margin-right: $length;
+                    }
+
+                    .mx-#{$breakpoint}-#{$size} {
+                        margin-left: $length;
+                        margin-right: $length;
+                    }
+
+                    .my-#{$breakpoint}-#{$size} {
+                        margin-top: $length;
+                        margin-bottom: $length;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for padding */
+/* Le classi per il padding permettono di aggiungere padding a un elemento. */
+/* Es: .p-1 aggiunge un padding di 0.25rem a tutti i lati. */
+@mixin generate-padding-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $size, $length in (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 1.5rem, 5: 3rem) {
+                .p-#{$size} {
+                    padding: $length;
+                }
+
+                .pt-#{$size} {
+                    padding-top: $length;
+                }
+
+                .pb-#{$size} {
+                    padding-bottom: $length;
+                }
+
+                .pl-#{$size} {
+                    padding-left: $length;
+                }
+
+                .pr-#{$size} {
+                    padding-right: $length;
+                }
+
+                .px-#{$size} {
+                    padding-left: $length;
+                    padding-right: $length;
+                }
+
+                .py-#{$size} {
+                    padding-top: $length;
+                    padding-bottom: $length;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $size, $length in (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 1.5rem, 5: 3rem) {
+                    .p-#{$breakpoint}-#{$size} {
+                        padding: $length;
+                    }
+
+                    .pt-#{$breakpoint}-#{$size} {
+                        padding-top: $length;
+                    }
+
+                    .pb-#{$breakpoint}-#{$size} {
+                        padding-bottom: $length;
+                    }
+
+                    .pl-#{$breakpoint}-#{$size} {
+                        padding-left: $length;
+                    }
+
+                    .pr-#{$breakpoint}-#{$size} {
+                        padding-right: $length;
+                    }
+
+                    .px-#{$breakpoint}-#{$size} {
+                        padding-left: $length;
+                        padding-right: $length;
+                    }
+
+                    .py-#{$breakpoint}-#{$size} {
+                        padding-top: $length;
+                        padding-bottom: $length;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for display */
+/* Le classi per il display permettono di modificare il display di un elemento. */
+/* Es: .d-block rende l'elemento un blocco. */
+@mixin generate-display-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $display, $style in (none: none, block: block, inline-block: inline-block, inline: inline, flex: flex, inline-flex: inline-flex, grid: grid, inline-grid: inline-grid, table: table, table-row: table-row, table-cell: table-cell) {
+                .d-#{$display} {
+                    display: $style;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $display, $style in (none: none, block: block, inline-block: inline-block, inline: inline, flex: flex, inline-flex: inline-flex, grid: grid, inline-grid: inline-grid, table: table, table-row: table-row, table-cell: table-cell) {
+                    .d-#{$breakpoint}-#{$display} {
+                        display: $style;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for text-align */
+/* Le classi per text-align permettono di allineare il testo di un elemento. */
+/* Es: .text-left allinea il testo a sinistra. */
+@mixin generate-text-align-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $align, $value in (left: left, right: right, center: center, justify: justify) {
+                .text-#{$align} {
+                    text-align: $value;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $align, $value in (left: left, right: right, center: center, justify: justify) {
+                    .text-#{$breakpoint}-#{$align} {
+                        text-align: $value;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for font-size */
+/* Le classi per font-size permettono di modificare la dimensione del font di un elemento. */
+/* Es: .fs-1 rende il font-size 2.5rem. */
+@mixin generate-font-size-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $size, $font-size in (1: 2.5rem, 2: 2rem, 3: 1.75rem, 4: 1.5rem, 5: 1.25rem, 6: 1rem) {
+                .fs-#{$size} {
+                    font-size: $font-size;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $size, $font-size in (1: 2.5rem, 2: 2rem, 3: 1.75rem, 4: 1.5rem, 5: 1.25rem, 6: 1rem) {
+                    .fs-#{$breakpoint}-#{$size} {
+                        font-size: $font-size;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for width */
+/* Le classi per width permettono di modificare la larghezza di un elemento. */
+/* Es: .w-25 rende la larghezza al 25%. */
+@mixin generate-width-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $width, $value in (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto) {
+                .w-#{$width} {
+                    width: $value;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $width, $value in (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto) {
+                    .w-#{$breakpoint}-#{$width} {
+                        width: $value;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for height */
+/* Le classi per height permettono di modificare l'altezza di un elemento. */
+/* Es: .h-25 rende l'altezza al 25%. */
+@mixin generate-height-classes {
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @each $height, $value in (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto) {
+                .h-#{$height} {
+                    height: $value;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @each $height, $value in (25: 25%, 50: 50%, 75: 75%, 100: 100%, auto: auto) {
+                    .h-#{$breakpoint}-#{$height} {
+                        height: $value;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Utility classes for grid system */
+/* Le classi per il grid system permettono di utilizzare un sistema a griglia. */
+/* Es: .row crea una riga di griglia e .col-6 rende l'elemento largo 6 colonne. */
+@mixin generate-grid-classes {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: calc(-0.5 * 1rem);
+        margin-left: calc(-0.5 * 1rem);
+    }
+
+    .row > * {
+        flex-shrink: 0;
+        width: 100%;
+        max-width: 100%;
+        padding-right: calc(0.5 * 1rem);
+        padding-left: calc(0.5 * 1rem);
+    }
+
+    @each $breakpoint, $value in $breakpoints {
+        @if $breakpoint == xs {
+            @for $i from 1 through 12 {
+                .col-#{$i} {
+                    flex: 0 0 auto;
+                    width: math.div(100%, 12) * $i;
+                }
+            }
+        }
+        @else {
+            @media (min-width: $value) {
+                @for $i from 1 through 12 {
+                    .col-#{$breakpoint}-#{$i} {
+                        flex: 0 0 auto;
+                        width: math.div(100%, 12) * $i;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Include all classes
+@include generate-margin-classes();
+@include generate-padding-classes();
+@include generate-display-classes();
+@include generate-text-align-classes();
+@include generate-font-size-classes();
+@include generate-width-classes();
+@include generate-height-classes();
+@include generate-grid-classes();

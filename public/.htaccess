@@ -1,0 +1,35 @@
+# Enable the RewriteEngine module
+RewriteEngine On
+
+# Prevent directory listing
+# -MultiViews: Disabilita la funzionalità MultiViews, che tenta di mappare richieste a file simili 
+# (utile per evitare comportamenti non previsti).
+# ..
+# -Indexes: Disabilita la visualizzazione dell'indice delle directory, 
+# impedendo agli utenti di vedere una lista dei file in una directory se non esiste un file di indice (come index.php o index.html).
+Options -MultiViews -Indexes
+
+
+# Prevent directory traversal attacks , 403 Forbidden
+RewriteCond %{THE_REQUEST} \.\./ [NC]
+RewriteRule .* - [F]
+
+# Nega l'accesso ai file nella cartella /assets/scss
+RewriteRule ^assets/scss - [F,L]
+
+
+# Redirect Trailing Slashes If Not A Folder...
+# http://phpframework.local/about.html/
+# -> http://phpframework.local/about.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
+
+
+# Controlla se il file richiesto non esiste
+# Controlla se la directory richiesta non esiste.
+# Restituisce un errore 403 Forbidden
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ - [F,L]
+
