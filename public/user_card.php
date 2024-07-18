@@ -53,11 +53,25 @@ $user = getRowQuery("SELECT u.id, u.name, u.email, u.enabled, '' as password
     , DATE_FORMAT(u.updated_at, '%d/%m/%Y - %H:%i') as updated_at
     From users u
     where id = :id", [":id" => $id]);
+$user = ($user ===false ? []: $user); //getisco il caso in cui non trovo l'utente creando un array vuoto
 $temp = getRowsQuery("SELECT id_role FROM users_roles WHERE id_user = :id", [":id" => $id]);
 $user_roles = array_column($temp, "id_role");
-$user["roles"] = $user_roles;
 $t_roles = getRowsQuery("SELECT id, role FROM t_roles", []);
 
+// se sono un insert 
+if ($op === 'i') {
+    //valori di default
+    $user = ["id" => -1
+        , "name" => ""
+        , "email" => ""
+        , "enabled" => 0
+        , "password" => ""
+        , "email_verified_at" => null
+        , "last_login" => null
+        , "created_at" => null
+        , "updated_at" => null
+    ];
+}
 
 // submit form
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
